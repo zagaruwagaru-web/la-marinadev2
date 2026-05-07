@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>La Marinade — Le Tacos N°1 à Lyon</title>
+<meta name="description" content="La Marinade, le seul tacos cuit au charbon de bois. Restaurant halal à Villeurbanne, Lyon. Tacos gratinés, burgers, grillades. Commandez en ligne."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════
+   RESET & VARIABLES
+═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080604;
+  --bg2:#0f0b07;
+  --bg3:#16100a;
+  --bg4:#1e160e;
+  --red:#c0392b;
+  --red2:#a93226;
+  --red-glow:rgba(192,57,43,.4);
+  --amber:#f0a500;
+  --cream:#f5ede4;
+  --warm:#c8a882;
+  --muted:#7a6040;
+  --border:rgba(255,255,255,.07);
+  --border2:rgba(255,255,255,.12);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--cream);overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+
+/* ═══════════════════════════════════════════
+   LOADER
+═══════════════════════════════════════════ */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  transition:opacity .6s .2s,visibility .6s .2s;
+}
+#loader.out{opacity:0;visibility:hidden}
+.loader-wordmark{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,8vw,6rem);
+  letter-spacing:12px;
+  color:#fff;
+  overflow:hidden;
+}
+.loader-wordmark span{display:inline-block;transform:translateY(100%);animation:slideUp .6s cubic-bezier(.16,1,.3,1) forwards}
+.loader-wordmark span:nth-child(2){animation-delay:.08s}
+.loader-wordmark span:nth-child(3){animation-delay:.16s}
+.loader-wordmark span:nth-child(4){animation-delay:.24s}
+.loader-wordmark span:nth-child(5){color:var(--red);animation-delay:.32s}
+.loader-wordmark span:nth-child(6){color:var(--red);animation-delay:.40s}
+.loader-wordmark span:nth-child(7){color:var(--red);animation-delay:.48s}
+.loader-wordmark span:nth-child(8){color:var(--red);animation-delay:.56s}
+.loader-wordmark span:nth-child(9){color:var(--red);animation-delay:.64s}
+@keyframes slideUp{to{transform:translateY(0)}}
+.loader-line{width:0;height:2px;background:var(--red);animation:lineGrow 1.2s ease forwards .8s}
+@keyframes lineGrow{to{width:200px}}
+.loader-sub{
+  font-size:.7rem;letter-spacing:6px;text-transform:uppercase;
+  color:var(--muted);opacity:0;animation:fadeIn .4s forwards 1s
+}
+@keyframes fadeIn{to{opacity:1}}
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+#nav{
+  position:fixed;top:0;width:100%;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 3.5rem;
+  transition:background .3s,padding .3s,backdrop-filter .3s;
+}
+#nav.solid{
+  background:rgba(8,6,4,.95);
+  backdrop-filter:blur(16px);
+  padding:.85rem 3.5rem;
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.7rem;letter-spacing:4px;
+  color:#fff;display:flex;align-items:center;gap:.5rem;
+}
+.nav-logo-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 12px var(--red);
+}
+.nav-links{
+  display:flex;gap:2.5rem;list-style:none;align-items:center;
+}
+.nav-links a{
+  font-size:.75rem;font-weight:600;letter-spacing:2.5px;
+  text-transform:uppercase;color:rgba(255,255,255,.55);
+  transition:color .2s;
+}
+.nav-links a:hover{color:#fff}
+.nav-cta{
+  background:var(--red);
+  color:#fff !important;
+  padding:.6rem 1.5rem;
+  border-radius:2px;
+  font-size:.75rem !important;
+  letter-spacing:2px !important;
+  font-weight:700 !important;
+  transition:background .2s !important;
+}
+.nav-cta:hover{background:var(--red2) !important}
+.nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-ham span{width:22px;height:1.5px;background:#fff;transition:.3s;display:block}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 0 5rem;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1920&q=80')
+    center/cover no-repeat;
+  transform:scale(1.05);
+  transition:transform 8s ease;
+  filter:brightness(.4) saturate(1.2);
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(to top, var(--bg) 0%, rgba(8,6,4,.6) 40%, rgba(8,6,4,.1) 100%),
+    linear-gradient(to right, rgba(8,6,4,.7) 0%, transparent 60%);
+}
+.hero-body{
+  position:relative;z-index:2;
+  padding:0 3.5rem;
+  max-width:820px;
+}
+.hero-pretitle{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:1.8rem;
+}
+.hero-pretitle-line{width:36px;height:1px;background:var(--red)}
+.hero-pretitle span{
+  font-size:.68rem;letter-spacing:5px;text-transform:uppercase;
+  color:var(--red);font-weight:600;
+}
+.hero-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,14vw,13rem);
+  line-height:.9;
+  letter-spacing:2px;
+  color:#fff;
+  margin-bottom:1.5rem;
+}
+.hero-h1 em{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.3);
+  font-style:normal;
+  display:block;
+}
+.hero-desc{
+  font-size:1rem;font-weight:300;line-height:1.85;
+  color:rgba(255,255,255,.6);
+  max-width:420px;
+  margin-bottom:2.5rem;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.btn-fire{
+  background:var(--red);
+  color:#fff;
+  padding:1rem 2.4rem;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.1rem;letter-spacing:3px;
+  border:none;cursor:pointer;border-radius:2px;
+  transition:background .2s,transform .2s,box-shadow .2s;
+  display:inline-flex;align-items:center;gap:.6rem;
+}
+.btn-fire:hover{background:var(--red2);transform:translateY(-2px);box-shadow:0 12px 32px var(--red-glow)}
+.btn-line{
+  background:transparent;
+  color:rgba(255,255,255,.7);
+  padding:1rem 2.4rem;
+  border:1px solid rgba(255,255,255,.2);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.1rem;letter-spacing:3px;
+  cursor:pointer;border-radius:2px;
+  transition:border-color .2s,color .2s;
+  display:inline-flex;align-items:center;gap:.6rem;
+}
+.btn-line:hover{border-color:var(--red);color:#fff}
+.hero-stats{
+  position:relative;z-index:2;
+  display:flex;gap:0;
+  margin-top:4rem;
+  border-top:1px solid var(--border);
+}
+.hstat{
+  flex:1;
+  padding:2rem 3.5rem;
+  border-right:1px solid var(--border);
+}
+.hstat:last-child{border-right:none}
+.hstat-n{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);
+  color:var(--red);line-height:1;
+  display:block;
+}
+.hstat-l{
+  font-size:.65rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);margin-top:.4rem;display:block;
+}
+.scroll-ind{
+  position:absolute;bottom:2rem;right:3.5rem;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+  opacity:.4;
+}
+.scroll-ind span{font-size:.6rem;letter-spacing:4px;text-transform:uppercase;writing-mode:vertical-lr}
+.scroll-ind::after{
+  content:'';width:1px;height:48px;
+  background:linear-gradient(to bottom,#fff,transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ═══════════════════════════════════════════
+   STRIP
+═══════════════════════════════════════════ */
+.strip{
+  background:var(--red);
+  padding:.9rem 0;
+  overflow:hidden;
+  position:relative;
+}
+.strip::before,.strip::after{
+  content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;
+}
+.strip::before{left:0;background:linear-gradient(to right,var(--red),transparent)}
+.strip::after{right:0;background:linear-gradient(to left,var(--red),transparent)}
+.strip-inner{
+  display:flex;gap:3.5rem;align-items:center;
+  white-space:nowrap;
+  animation:marquee 25s linear infinite;
+  width:max-content;
+}
+.strip-inner:hover{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.strip-item{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.1rem;letter-spacing:2px;
+  color:rgba(255,255,255,.9);
+  display:flex;align-items:center;gap:1rem;
+}
+.strip-sep{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0}
+
+/* ═══════════════════════════════════════════
+   SHARED SECTION STYLES
+═══════════════════════════════════════════ */
+.section{padding:8rem 3.5rem}
+.section-inner{max-width:1280px;margin:0 auto}
+.label{
+  font-size:.65rem;letter-spacing:5px;text-transform:uppercase;
+  color:var(--red);font-weight:700;margin-bottom:1rem;display:block;
+}
+.display{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,5rem);
+  line-height:.95;letter-spacing:1px;color:#fff;
+}
+.display em{color:var(--red);font-style:normal}
+.body-text{
+  color:var(--warm);line-height:1.9;font-size:.95rem;font-weight:300;
+}
+
+/* ═══════════════════════════════════════════
+   CONCEPT
+═══════════════════════════════════════════ */
+.concept{background:var(--bg2)}
+.concept-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6rem;align-items:center;
+}
+.concept-img-wrap{position:relative}
+.concept-img{
+  width:100%;aspect-ratio:4/5;
+  object-fit:cover;border-radius:2px;
+  filter:brightness(.85) saturate(1.1);
+}
+.concept-img-fallback{
+  width:100%;aspect-ratio:4/5;
+  background:
+    url('https://images.unsplash.com/photo-1514190051997-0f6f39ca5cde?w=800&q=80')
+    center/cover;
+  border-radius:2px;
+  filter:brightness(.7) saturate(1.2);
+}
+.concept-badge{
+  position:absolute;bottom:-1.5rem;right:-1.5rem;
+  background:var(--red);
+  padding:1.8rem;
+  border-radius:2px;
+  text-align:center;
+  box-shadow:0 16px 40px var(--red-glow);
+}
+.concept-badge-n{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3rem;color:#fff;line-height:1;display:block;
+}
+.concept-badge-t{
+  font-size:.6rem;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.75);margin-top:.3rem;display:block;
+}
+.concept-text .display{margin-bottom:1.5rem}
+.concept-text .body-text{margin-bottom:2.5rem}
+.concept-pillars{display:flex;flex-direction:column;gap:1rem;margin-bottom:2.5rem}
+.pillar{
+  display:flex;align-items:flex-start;gap:1rem;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:2px;padding:1.2rem;
+  transition:border-color .2s;
+}
+.pillar:hover{border-color:rgba(192,57,43,.4)}
+.pillar-icon{
+  width:40px;height:40px;flex-shrink:0;
+  background:rgba(192,57,43,.12);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;
+}
+.pillar-title{font-weight:700;font-size:.9rem;color:#fff;margin-bottom:.2rem}
+.pillar-desc{font-size:.8rem;color:var(--muted);line-height:1.6}
+.concept-founded{
+  display:inline-flex;align-items:center;gap:1rem;
+  border:1px solid var(--border);padding:.8rem 1.5rem;border-radius:2px;
+}
+.concept-founded span{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.concept-founded strong{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--amber);letter-spacing:2px}
+
+/* ═══════════════════════════════════════════
+   MENU
+═══════════════════════════════════════════ */
+.menu-sec{background:var(--bg)}
+.menu-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:3.5rem;gap:2rem;
+}
+.menu-head .body-text{max-width:380px}
+.tabs{
+  display:flex;gap:0;
+  border:1px solid var(--border);
+  border-radius:2px;overflow-x:auto;
+  margin-bottom:3rem;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:none;padding:.75rem 1.5rem;
+  background:transparent;border:none;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.9rem;letter-spacing:2px;
+  color:var(--muted);cursor:pointer;
+  border-right:1px solid var(--border);
+  transition:all .2s;white-space:nowrap;
+}
+.tab:last-child{border-right:none}
+.tab.on{background:var(--red);color:#fff}
+.tab:not(.on):hover{background:rgba(255,255,255,.04);color:var(--cream)}
+.pane{display:none}
+.pane.on{display:block}
+/* Grid de produits */
+.prod-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+}
+.prod{
+  background:var(--bg);
+  padding:2rem;
+  transition:background .2s;
+  position:relative;cursor:default;
+}
+.prod:hover{background:var(--bg3)}
+.prod.hero-item{background:var(--bg3)}
+.prod-tag{
+  position:absolute;top:1.2rem;right:1.2rem;
+  font-size:.6rem;letter-spacing:2px;text-transform:uppercase;
+  font-weight:700;padding:.3rem .7rem;border-radius:1px;
+}
+.prod-tag.red{background:var(--red);color:#fff}
+.prod-tag.gold{background:var(--amber);color:var(--bg)}
+.prod-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.4rem;letter-spacing:1px;color:#fff;
+  margin-bottom:.5rem;
+}
+.prod-desc{font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+.prod-foot{display:flex;justify-content:space-between;align-items:center}
+.prod-price{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--red)}
+.prod-from{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+/* Liste simple */
+.list-table{
+  border:1px solid var(--border);border-radius:2px;overflow:hidden;
+}
+.list-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.1rem 1.8rem;
+  border-bottom:1px solid var(--border);
+  transition:background .2s;
+}
+.list-row:last-child{border-bottom:none}
+.list-row:hover{background:var(--bg3)}
+.list-name{font-weight:600;font-size:.9rem;color:#fff}
+.list-sub{font-size:.75rem;color:var(--muted);margin-top:.15rem}
+.list-price{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem;color:var(--red);
+  white-space:nowrap;margin-left:1rem;
+}
+/* Viandes selector */
+.viandes{
+  margin-top:2rem;
+  padding:1.5rem 2rem;
+  background:var(--bg3);border:1px solid var(--border);border-radius:2px;
+}
+.viandes-t{
+  font-size:.65rem;letter-spacing:4px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:1rem;display:block;
+}
+.viandes-wrap{display:flex;flex-wrap:wrap;gap:.6rem}
+.vtag{
+  font-size:.78rem;font-weight:600;
+  padding:.4rem 1rem;
+  background:var(--bg4);border:1px solid var(--border);
+  border-radius:1px;
+  transition:border-color .2s,color .2s;cursor:default;
+}
+.vtag:hover{border-color:rgba(192,57,43,.5);color:#fff}
+.menu-note{
+  margin-top:1.5rem;
+  padding:1rem 1.5rem;
+  background:rgba(240,165,0,.06);border:1px solid rgba(240,165,0,.15);
+  border-radius:2px;font-size:.82rem;color:var(--warm);
+}
+
+/* ═══════════════════════════════════════════
+   BEST-SELLERS
+═══════════════════════════════════════════ */
+.bestsellers{background:var(--bg2)}
+.bs-head{text-align:center;margin-bottom:4rem}
+.bs-head .body-text{margin:.8rem auto 0;max-width:480px}
+.bs-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:1px;
+  background:var(--border);border:1px solid var(--border);
+}
+.bs-card{
+  background:var(--bg2);
+  position:relative;overflow:hidden;
+  cursor:default;
+}
+.bs-card:hover .bs-img{transform:scale(1.06)}
+.bs-img-wrap{
+  height:320px;overflow:hidden;position:relative;
+}
+.bs-card:first-child .bs-img-wrap{height:520px}
+.bs-img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform .6s ease;
+  filter:brightness(.75) saturate(1.15);
+}
+.bs-img-fb{
+  width:100%;height:100%;
+  background:
+    linear-gradient(135deg,rgba(192,57,43,.3),rgba(8,6,4,.8)),
+    url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800&q=80')
+    center/cover;
+  transition:transform .6s ease;
+}
+.bs-img-fb2{
+  width:100%;height:100%;
+  background:
+    linear-gradient(135deg,rgba(240,165,0,.2),rgba(8,6,4,.8)),
+    url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80')
+    center/cover;
+  transition:transform .6s ease;
+}
+.bs-img-fb3{
+  width:100%;height:100%;
+  background:
+    linear-gradient(135deg,rgba(30,30,10,.3),rgba(8,6,4,.8)),
+    url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80')
+    center/cover;
+  transition:transform .6s ease;
+}
+.bs-card:hover .bs-img-fb,
+.bs-card:hover .bs-img-fb2,
+.bs-card:hover .bs-img-fb3{transform:scale(1.06)}
+.bs-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(8,6,4,1) 0%,rgba(8,6,4,.6) 60%,transparent 100%);
+  padding:2rem 1.8rem 1.8rem;
+}
+.bs-badge{
+  font-size:.6rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+  padding:.3rem .7rem;border-radius:1px;margin-bottom:.8rem;display:inline-block;
+}
+.bs-badge.red{background:var(--red);color:#fff}
+.bs-badge.gold{background:var(--amber);color:var(--bg)}
+.bs-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;letter-spacing:1px;color:#fff;
+  margin-bottom:.4rem;line-height:1;
+}
+.bs-card:first-child .bs-name{font-size:2.4rem}
+.bs-detail{font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:1rem;line-height:1.5}
+.bs-price{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.8rem;color:var(--red);
+}
+.bs-card:first-child .bs-price{font-size:2.4rem}
+
+/* ═══════════════════════════════════════════
+   PRESSE
+═══════════════════════════════════════════ */
+.presse{
+  background:var(--bg3);
+  padding:6rem 3.5rem;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.presse::before{
+  content:'"';
+  font-family:'Bebas Neue',sans-serif;
+  font-size:30rem;
+  color:rgba(192,57,43,.04);
+  position:absolute;top:-4rem;left:50%;transform:translateX(-50%);
+  line-height:1;user-select:none;pointer-events:none;
+}
+.presse-quote{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.8rem,3.5vw,3rem);
+  letter-spacing:1px;color:#fff;
+  max-width:900px;margin:0 auto 2rem;
+  position:relative;z-index:1;
+  line-height:1.1;
+}
+.presse-quote em{color:var(--red);font-style:normal}
+.presse-source{
+  display:inline-flex;align-items:center;gap:1rem;
+  position:relative;z-index:1;
+}
+.presse-sep{width:30px;height:1px;background:var(--muted)}
+.presse-name{font-size:.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted)}
+.presse-date{font-size:.7rem;color:var(--muted);opacity:.6}
+
+/* ═══════════════════════════════════════════
+   AVIS
+═══════════════════════════════════════════ */
+.avis-sec{background:var(--bg)}
+.avis-top{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:4rem;gap:2rem;
+}
+.rating-block{display:flex;align-items:center;gap:2rem}
+.rating-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:6rem;line-height:1;
+  color:var(--amber);
+}
+.rating-stars{font-size:1.3rem;color:var(--amber);letter-spacing:2px;display:block;margin-bottom:.3rem}
+.rating-count{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.avis-platforms{
+  display:flex;gap:2rem;
+}
+.plat{text-align:center}
+.plat-score{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;color:#fff;line-height:1;
+}
+.plat-name{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
+.plat-n{font-size:.65rem;color:var(--muted);opacity:.6}
+.avis-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+}
+.avis-card{
+  background:var(--bg);padding:2rem;
+  position:relative;transition:background .2s;
+}
+.avis-card:hover{background:var(--bg3)}
+.avis-bigquote{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:5rem;
+  color:rgba(192,57,43,.1);
+  position:absolute;top:.5rem;right:1.5rem;
+  line-height:1;user-select:none;
+}
+.avis-stars{color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:1rem}
+.avis-text{
+  font-size:.85rem;color:var(--warm);line-height:1.8;
+  font-style:italic;margin-bottom:1.5rem;
+}
+.avis-footer{display:flex;justify-content:space-between;align-items:center}
+.avis-author{display:flex;align-items:center;gap:.8rem}
+.avis-av{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red2),#5a2015);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;font-weight:700;color:#fff;flex-shrink:0;
+}
+.avis-name{font-weight:700;font-size:.82rem;color:#fff}
+.avis-via{font-size:.68rem;color:var(--muted)}
+.avis-rating-badge{
+  font-family:'Bebas Neue',sans-serif;font-size:.85rem;
+  color:var(--amber);letter-spacing:1px;
+}
+
+/* ═══════════════════════════════════════════
+   LOCALISATION
+═══════════════════════════════════════════ */
+.loc-sec{background:var(--bg2)}
+.loc-grid{
+  display:grid;grid-template-columns:1fr 1.1fr;
+  gap:4rem;align-items:start;
+}
+.loc-info .display{margin-bottom:2rem}
+.hours-block{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:2px;overflow:hidden;margin-bottom:2rem;
+}
+.hours-title{
+  padding:1rem 1.5rem;
+  background:var(--bg4);
+  font-size:.65rem;letter-spacing:4px;text-transform:uppercase;
+  color:var(--muted);font-weight:700;
+  border-bottom:1px solid var(--border);
+}
+.hours-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.9rem 1.5rem;
+  border-bottom:1px solid var(--border);
+  font-size:.85rem;
+}
+.hours-row:last-child{border-bottom:none}
+.hours-day{color:var(--muted);font-weight:500}
+.hours-val{color:#fff;font-weight:600}
+.hours-val.today{color:var(--amber)}
+.contact-info{
+  display:flex;flex-direction:column;gap:1rem;
+  margin-bottom:2rem;
+}
+.ci{
+  display:flex;gap:1rem;align-items:center;
+  padding:1rem 1.5rem;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:2px;transition:border-color .2s;
+}
+.ci:hover{border-color:rgba(192,57,43,.3)}
+.ci-icon{
+  width:40px;height:40px;flex-shrink:0;
+  background:rgba(192,57,43,.1);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1rem;
+}
+.ci-label{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+.ci-val{font-size:.9rem;font-weight:600;color:#fff}
+.ci-val a{color:var(--red);transition:color .2s}
+.ci-val a:hover{color:var(--amber)}
+.social-row{display:flex;gap:.8rem}
+.soc{
+  width:42px;height:42px;
+  border:1px solid var(--border);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;transition:border-color .2s,background .2s;
+}
+.soc:hover{border-color:var(--red);background:rgba(192,57,43,.1)}
+/* Map */
+.map-card{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:2px;overflow:hidden;
+  position:sticky;top:6rem;
+}
+.map-head{
+  padding:1.2rem 1.8rem;
+  background:var(--bg4);
+  border-bottom:1px solid var(--border);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1rem;letter-spacing:2px;
+  display:flex;align-items:center;gap:.7rem;
+}
+.map-dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red)}
+.map-iframe{
+  width:100%;height:340px;border:none;
+  filter:grayscale(1) invert(1) brightness(.8) contrast(.9);
+}
+.map-footer{
+  padding:1rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--border);
+}
+.map-addr{font-size:.78rem;color:var(--muted);line-height:1.5}
+.map-open{
+  background:var(--red);color:#fff;
+  padding:.55rem 1.1rem;border-radius:2px;
+  font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  transition:background .2s;
+}
+.map-open:hover{background:var(--red2)}
+.halal-chip{
+  display:inline-flex;align-items:center;gap:.7rem;
+  border:1px solid rgba(240,165,0,.25);
+  background:rgba(240,165,0,.05);
+  padding:.6rem 1.2rem;border-radius:2px;
+}
+.halal-chip span{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:700}
+
+/* ═══════════════════════════════════════════
+   CTA FINAL
+═══════════════════════════════════════════ */
+.cta-final{
+  background:var(--bg);
+  padding:10rem 3.5rem;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-final::before{
+  content:'';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(192,57,43,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cta-final .display{margin-bottom:1.5rem;position:relative}
+.cta-final .body-text{margin:0 auto 3rem;max-width:500px;position:relative}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer{
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+}
+.foot-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:3rem;padding:4rem 3.5rem 3rem;
+  max-width:1280px;margin:0 auto;
+}
+.foot-brand .logo-f{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;letter-spacing:4px;color:#fff;
+  display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;
+}
+.foot-brand .logo-f span{color:var(--red)}
+.foot-brand p{font-size:.82rem;color:var(--muted);line-height:1.8;max-width:260px;margin-bottom:1.5rem}
+.foot-socs{display:flex;gap:.7rem}
+.foot-col h4{
+  font-size:.62rem;letter-spacing:4px;text-transform:uppercase;
+  color:var(--red);margin-bottom:1.3rem;font-weight:700;
+}
+.foot-col ul{list-style:none}
+.foot-col ul li{margin-bottom:.7rem}
+.foot-col ul li a{font-size:.82rem;color:var(--muted);transition:color .2s}
+.foot-col ul li a:hover{color:var(--cream)}
+.foot-col p{font-size:.82rem;color:var(--muted);line-height:1.9}
+.foot-bottom{
+  max-width:1280px;margin:0 auto;
+  padding:1.5rem 3.5rem;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;
+}
+.foot-bottom p{font-size:.72rem;color:rgba(255,255,255,.2)}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS SCROLL
+═══════════════════════════════════════════ */
+.reveal{
+  opacity:0;transform:translateY(32px);
+  transition:opacity .65s ease,transform .65s ease;
+}
+.reveal.visible{opacity:1;transform:none}
+.reveal-l{
+  opacity:0;transform:translateX(-32px);
+  transition:opacity .65s ease,transform .65s ease;
+}
+.reveal-l.visible{opacity:1;transform:none}
+.reveal-r{
+  opacity:0;transform:translateX(32px);
+  transition:opacity .65s ease,transform .65s ease;
+}
+.reveal-r.visible{opacity:1;transform:none}
+.delay-1{transition-delay:.1s}
+.delay-2{transition-delay:.2s}
+.delay-3{transition-delay:.3s}
+.delay-4{transition-delay:.4s}
+.delay-5{transition-delay:.5s}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:1024px){
+  .concept-grid{grid-template-columns:1fr;gap:3rem}
+  .concept-img-wrap{display:none}
+  .bs-grid{grid-template-columns:1fr 1fr}
+  .bs-card:first-child{grid-column:span 2}
+  .prod-grid{grid-template-columns:1fr 1fr}
+  .loc-grid{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr 1fr;gap:2rem}
+}
+@media(max-width:768px){
+  #nav{padding:1rem 1.5rem}
+  #nav.solid{padding:.75rem 1.5rem}
+  .nav-links{display:none}
+  .nav-links.open{
+    display:flex;flex-direction:column;
+    position:fixed;inset:0;
+    background:rgba(8,6,4,.98);
+    align-items:center;justify-content:center;gap:2.5rem;
+    z-index:499;
+  }
+  .nav-links.open a{font-size:1.5rem;letter-spacing:4px}
+  .nav-ham{display:flex}
+  .section{padding:5rem 1.5rem}
+  .presse,.cta-final{padding:5rem 1.5rem}
+  .hero-body{padding:0 1.5rem}
+  .hero-stats{flex-direction:column}
+  .hstat{border-right:none;border-bottom:1px solid var(--border);padding:1.5rem}
+  .avis-grid{grid-template-columns:1fr}
+  .avis-top{flex-direction:column;align-items:flex-start}
+  .rating-block{gap:1rem}
+  .bs-grid{grid-template-columns:1fr}
+  .bs-card:first-child{grid-column:span 1}
+  .prod-grid{grid-template-columns:1fr}
+  .menu-head{flex-direction:column;align-items:flex-start}
+  .foot-top{grid-template-columns:1fr;padding:3rem 1.5rem 2rem}
+  .foot-bottom{padding:1.5rem;flex-direction:column;text-align:center}
+  .loc-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ LOADER ══════════ -->
+<div id="loader">
+  <div class="loader-wordmark">
+    <span>L</span><span>A</span><span>&nbsp;</span>
+    <span>M</span><span>A</span><span>R</span><span>I</span><span>N</span><span>A</span><span>D</span><span>E</span>
+  </div>
+  <div class="loader-line"></div>
+  <div class="loader-sub">Villeurbanne · Lyon</div>
+</div>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    LA MARINADE
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#concept">Concept</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#bestsellers">Best-sellers</a></li>
+    <li><a href="#avis">Avis</a></li>
+    <li><a href="#localisation">Localisation</a></li>
+    <li><a href="https://order.tryotter.com/s/la-marinade/110-rue-du-4-ao%C3%BBt-1789-villeurbanne/c63544bc-945c-4eb6-b84d-84bf69045757" target="_blank" class="nav-cta">Commander →</a></li>
+  </ul>
+  <div class="nav-ham" id="navHam"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-body">
+    <div class="hero-pretitle">
+      <div class="hero-pretitle-line"></div>
+      <span>Villeurbanne · Lyon · Halal · Depuis 2010</span>
+    </div>
+    <h1 class="hero-h1">LA<br>MARI<em>NADE</em></h1>
+    <p class="hero-desc">Le seul tacos cuit au charbon de bois. Galettes maison, viandes marinées, fromages fondants — une adresse qui se mérite.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-fire">Voir le menu</a>
+      <a href="https://order.tryotter.com/s/la-marinade/110-rue-du-4-ao%C3%BBt-1789-villeurbanne/c63544bc-945c-4eb6-b84d-84bf69045757" target="_blank" class="btn-line">Commander en ligne →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat reveal delay-1">
+      <span class="hstat-n">4.3 ★</span>
+      <span class="hstat-l">Note UberEats · 15 000+ avis</span>
+    </div>
+    <div class="hstat reveal delay-2">
+      <span class="hstat-n">59K</span>
+      <span class="hstat-l">Abonnés Instagram</span>
+    </div>
+    <div class="hstat reveal delay-3">
+      <span class="hstat-n">N°1</span>
+      <span class="hstat-l">Tacos à Lyon</span>
+    </div>
+    <div class="hstat reveal delay-4">
+      <span class="hstat-n">7J/7</span>
+      <span class="hstat-l">Ouvert · Jusqu'à 1h du mat</span>
+    </div>
+  </div>
+  <div class="scroll-ind"><span>Défiler</span></div>
+</section>
+
+<!-- ══════════ STRIP ══════════ -->
+<div class="strip">
+  <div class="strip-inner">
+    <div class="strip-item">🔥 Tacos N°1 à Lyon</div><div class="strip-sep"></div>
+    <div class="strip-item">☪ 100% Halal Certifié</div><div class="strip-sep"></div>
+    <div class="strip-item">🪵 Seul tacos cuit au charbon de bois</div><div class="strip-sep"></div>
+    <div class="strip-item">🧀 Gratinage artisanal au four</div><div class="strip-sep"></div>
+    <div class="strip-item">🛵 Livraison UberEats · Deliveroo</div><div class="strip-sep"></div>
+    <div class="strip-item">⭐ 15 000+ avis · Note 4.3/5</div><div class="strip-sep"></div>
+    <div class="strip-item">🔥 Tacos N°1 à Lyon</div><div class="strip-sep"></div>
+    <div class="strip-item">☪ 100% Halal Certifié</div><div class="strip-sep"></div>
+    <div class="strip-item">🪵 Seul tacos cuit au charbon de bois</div><div class="strip-sep"></div>
+    <div class="strip-item">🧀 Gratinage artisanal au four</div><div class="strip-sep"></div>
+    <div class="strip-item">🛵 Livraison UberEats · Deliveroo</div><div class="strip-sep"></div>
+    <div class="strip-item">⭐ 15 000+ avis · Note 4.3/5</div><div class="strip-sep"></div>
+  </div>
+</div>
+
+<!-- ══════════ CONCEPT ══════════ -->
+<section class="section concept" id="concept">
+  <div class="section-inner">
+    <div class="concept-grid">
+      <div class="concept-img-wrap reveal-l">
+        <img
+          class="concept-img"
+          src="https://lh3.googleusercontent.com/p/AF1QipOiJ0QkR4kaopsiIon1_tefsLXliqDdoo-1pSYF=s1600-w640"
+          alt="Tacos gratiné La Marinade"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+        />
+        <div class="concept-img-fallback" style="display:none"></div>
+        <div class="concept-badge">
+          <span class="concept-badge-n">2010</span>
+          <span class="concept-badge-t">Fondé à Lyon</span>
+        </div>
+      </div>
+      <div class="concept-text reveal-r">
+        <span class="label">Notre concept</span>
+        <h2 class="display">LE TACOS<br>QUI <em>MÉRITE</em><br>L'ATTENTE</h2>
+        <p class="body-text" style="margin:1.5rem 0 2rem">
+          Depuis 2010, La Marinade a transformé Villeurbanne en capitale du tacos lyonnais. Notre secret : une galette maison au moelleux incomparable, des viandes marinées aux épices et un gratinage au four qui crée cette croûte dorée signature. On est le seul tacos cuit au charbon de bois.
+        </p>
+        <div class="concept-pillars">
+          <div class="pillar reveal delay-1">
+            <div class="pillar-icon">🪵</div>
+            <div>
+              <div class="pillar-title">Cuisson au charbon de bois</div>
+              <div class="pillar-desc">Seul restaurant tacos de Lyon à utiliser le charbon de bois. Saveur fumée naturelle, incomparable.</div>
+            </div>
+          </div>
+          <div class="pillar reveal delay-2">
+            <div class="pillar-icon">🧀</div>
+            <div>
+              <div class="pillar-title">Gratinage artisanal au four</div>
+              <div class="pillar-desc">Chaque tacos passe au four pour un fromage coulant, doré et croustillant. C'est ça, la signature La Marinade.</div>
+            </div>
+          </div>
+          <div class="pillar reveal delay-3">
+            <div class="pillar-icon">🌿</div>
+            <div>
+              <div class="pillar-title">Ingrédients frais, produits maison</div>
+              <div class="pillar-desc">Galettes pétries chaque jour. Sauces maison. Viandes marinées sur place. Pas de compromis sur la fraîcheur.</div>
+            </div>
+          </div>
+        </div>
+        <div class="concept-founded reveal delay-4">
+          <strong>2010</strong>
+          <span>•</span>
+          <span>Fondé à Villeurbanne</span>
+          <strong style="color:var(--red)">+15 ANS</strong>
+          <span>d'expérience</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MENU ══════════ -->
+<section class="section menu-sec" id="menu">
+  <div class="section-inner">
+    <div class="menu-head">
+      <div>
+        <span class="label">La carte complète</span>
+        <h2 class="display reveal">LA CARTE<br><em>LA MARINADE</em></h2>
+      </div>
+      <p class="body-text reveal-r">Tout est fait maison. Les galettes, les sauces, les marinades — chaque détail compte pour vous donner le meilleur tacos de Lyon.</p>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-t="tacos">🌮 Tacos</button>
+      <button class="tab" data-t="menus">🍟 Menus</button>
+      <button class="tab" data-t="burgers">🍔 Burgers</button>
+      <button class="tab" data-t="sandwichs">🥙 Sandwichs</button>
+      <button class="tab" data-t="roules">🌯 Roulés</button>
+      <button class="tab" data-t="grillades">🥩 Grillades</button>
+      <button class="tab" data-t="salades">🥗 Salades</button>
+      <button class="tab" data-t="desserts">🍮 Desserts</button>
+    </div>
+
+    <!-- TACOS -->
+    <div class="pane on" id="p-tacos">
+      <div class="prod-grid">
+        <div class="prod hero-item reveal delay-1">
+          <span class="prod-tag red">⭐ Best-seller</span>
+          <div class="prod-name">Tacos Gratiné Maxi</div>
+          <div class="prod-desc">2 viandes · 2 galettes maison · fromage fondu au four (Gruyère, Raclette, Mozzarella, Chèvre ou Boursin). La référence absolue.</div>
+          <div class="prod-foot">
+            <div><div class="prod-from">à partir de</div><div class="prod-price">15,90 €</div></div>
+          </div>
+        </div>
+        <div class="prod reveal delay-2">
+          <div class="prod-name">Tacos Gratiné Simple</div>
+          <div class="prod-desc">1 viande · 1 galette · fromage gratiné au four. Le point d'entrée parfait dans l'univers La Marinade.</div>
+          <div class="prod-foot">
+            <div><div class="prod-from">à partir de</div><div class="prod-price">10,90 €</div></div>
+          </div>
+        </div>
+        <div class="prod reveal delay-3">
+          <span class="prod-tag gold">Nouveau</span>
+          <div class="prod-name">Tacos Boursin</div>
+          <div class="prod-desc">Tacos avec fromage Boursin ail &amp; fines herbes, fondu et gratiné. Douceur et caractère.</div>
+          <div class="prod-foot">
+            <div><div class="prod-from">à partir de</div><div class="prod-price">11,90 €</div></div>
+          </div>
+        </div>
+        <div class="prod reveal delay-1">
+          <div class="prod-name">Tacos Raclette</div>
+          <div class="prod-desc">Raclette fondante gratinée. La classique revisitée à la sauce La Marinade.</div>
+          <div class="prod-foot">
+            <div><div class="prod-price">11,90 €</div></div>
+          </div>
+        </div>
+        <div class="prod reveal delay-2">
+          <div class="prod-name">Maxi Tacos Chèvre</div>
+          <div class="prod-desc">2 viandes · chèvre gratiné · galettes moelleuses. Le favori des connaisseurs.</div>
+          <div class="prod-foot">
+            <div><div class="prod-price">15,90 €</div></div>
+          </div>
+        </div>
+        <div class="prod reveal delay-3">
+          <div class="prod-name">Tacos Original</div>
+          <div class="prod-desc">Sans gratinage. Galette maison, viande au choix, sauce et légumes. La base, impeccable.</div>
+          <div class="prod-foot">
+            <div><div class="prod-price">10,90 €</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="viandes reveal">
+        <span class="viandes-t">Choix des viandes</span>
+        <div class="viandes-wrap">
+          <span class="vtag">🍗 Poulet mariné</span>
+          <span class="vtag">🍗 Tenders poulet</span>
+          <span class="vtag">🍗 Poulet tandoori</span>
+          <span class="vtag">🥩 Merguez grillée</span>
+          <span class="vtag">🥩 Viande hachée</span>
+          <span class="vtag">🌿 Option végé</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENUS -->
+    <div class="pane" id="p-menus">
+      <div class="list-table reveal">
+        <div class="list-row">
+          <div><div class="list-name">Menu Tacos Simple Gratiné</div><div class="list-sub">Tacos gratiné 1 viande + Frites maison + Boisson</div></div>
+          <div class="list-price">14,90 €</div>
+        </div>
+        <div class="list-row">
+          <div><div class="list-name">Menu Tacos Maxi Gratiné</div><div class="list-sub">Tacos gratiné 2 viandes + Frites maison + Boisson</div></div>
+          <div class="list-price">18,90 €</div>
+        </div>
+        <div class="list-row">
+          <div><div class="list-name">Menu Tacos Gruyère</div><div class="list-sub">Tacos gruyère crémeux + Frites + Boisson</div></div>
+          <div class="list-price">14,90 €</div>
+        </div>
+        <div class="list-row">
+          <div><div class="list-name">Menu Tacos Raclette</div><div class="list-sub">Tacos raclette fondue + Frites + Boisson</div></div>
+          <div class="list-price">14,90 €</div>
+        </div>
+        <div class="list-row">
+          <div><div class="list-name">Menu Tacos Mozzarella</div><div class="list-sub">Tacos mozzarella + Frites + Boisson</div></div>
+          <div class="list-price">14,90 €</div>
+        </div>
+        <div class="list-row">
+          <div><div class="list-name">Menu Tacos Chèvre</div><div class="list-sub">Tacos chèvre fondant + Frites + Boisson</div></div>
+          <div class="list-price">14,90 €</div>
+        </div>
+        <div class="list-row">
+          <div><div class="list-name">Menu Tacos Boursin</div><div class="list-sub">Tacos Boursin ail &amp; fines herbes + Frites + Boisson</div></div>
+          <div class="list-price">14,90 €</div>
+        </div>
+        <div class="list-row">
+          <div><div class="list-name">Menu Maxi Chèvre</div><div class="list-sub">Tacos maxi 2 viandes + chèvre gratiné + Frites + Boisson</div></div>
+          <div class="list-price">18,90 €</div>
+        </div>
+      </div>
+      <div class="menu-note reveal">💳 <strong>Tickets restaurant acceptés</strong> — Swile · Ticket Restaurant® · Bimpli</div>
+    </div>
+
+    <!-- BURGERS -->
+    <div class="pane" id="p-burgers">
+      <div class="list-table reveal">
+        <div class="list-row"><div><div class="list-name">Burger Simple</div><div class="list-sub">Steak haché, cheddar, salade, tomate, sauce maison</div></div><div class="list-price">6,90 €</div></div>
+        <div class="list-row"><div><div class="list-name">Burger Double Cheddar</div><div class="list-sub">Double steak, double cheddar, pickles, sauce BBQ</div></div><div class="list-price">8,90 €</div></div>
+        <div class="list-row"><div><div class="list-name">Burger Poulet</div><div class="list-sub">Filet de poulet grillé, mayo, salade, tomates</div></div><div class="list-price">7,90 €</div></div>
+        <div class="list-row"><div><div class="list-name">Burger Savoyard</div><div class="list-sub">Steak, raclette fondue, lardons, oignons caramélisés</div></div><div class="list-price">8,90 €</div></div>
+        <div class="list-row"><div><div class="list-name">Menu Burger Simple</div><div class="list-sub">Burger + Frites + Boisson</div></div><div class="list-price">10,90 €</div></div>
+        <div class="list-row"><div><div class="list-name">Menu Burger Double</div><div class="list-sub">Burger double + Frites + Boisson</div></div><div class="list-price">11,90 €</div></div>
+      </div>
+    </div>
+
+    <!-- SANDWICHS -->
+    <div class="pane" id="p-sandwichs">
+      <div class="list-table reveal">
+        <div class="list-row"><div><div class="list-name">Kebab Maison</div><div class="list-sub">Pain maison, viande grillée, sauce algérienne ou blanche, légumes</div></div><div class="list-price">8,90 €</div></div>
+        <div class="list-row"><div><div class="list-name">Sandwich Merguez</div><div class="list-sub">Merguez grillées, harissa maison, oignons, frites intégrées</div></div><div class="list-price">8,90 €</div></div>
+        <div class="list-row"><div><div class="list-name">Sandwich Escalope</div><div class="list-sub">Escalope panée, sauce, crudités, cornichons</div></div><div class="list-price">8,90 €</div></div>
+        <div class="list-row"><div><div class="list-name">Menu Sandwich</div><div class="list-sub">Sandwich au choix + Frites + Boisson</div></div><div class="list-price">10,90 €</div></div>
+      </div>
+    </div>
+
+    <!-- ROULÉS -->
+    <div class="pane" id="p-roules">
+      <div class="list-table reveal">
+        <div class="list-row"><div><div class="list-name">Roulé Gratiné Simple</div><div class="list-sub">Format roulé, 1 viande, fromage gratiné au four</div></div><div class="list-price">13,90 €</div></div>
+        <div class="list-row"><div><div class="list-name">Roulé Gratiné Maxi</div><div class="list-sub">Format roulé, 2 viandes, fromage gratiné au four</div></div><div class="list-price">16,50 €</div></div>
+        <div class="list-row"><div><div class="list-name">Menu Roulé Gratiné</div><div class="list-sub">Roulé gratiné + Frites + Boisson</div></div><div class="list-price">17,90 €</div></div>
+      </div>
+    </div>
+
+    <!-- GRILLADES -->
+    <div class="pane" id="p-grillades">
+      <div class="list-table reveal">
+        <div class="list-row"><div><div class="list-name">Assiette Grillades</div><div class="list-sub">Assortiment de viandes grillées au charbon, accompagnement au choix</div></div><div class="list-price">12,87 €</div></div>
+        <div class="list-row"><div><div class="list-name">Deluxe Grill</div><div class="list-sub">Merguez, poulet, pain fromage gratiné, sauces maison</div></div><div class="list-price">15,47 €</div></div>
+        <div class="list-row"><div><div class="list-name">Brochettes Poulet</div><div class="list-sub">Marinades maison au charbon de bois, frites, sauce algérienne</div></div><div class="list-price">12,87 €</div></div>
+        <div class="list-row"><div><div class="list-name">Pizza La Marinade</div><div class="list-sub">Pâte fine, garnitures maison</div></div><div class="list-price">6,00 €</div></div>
+      </div>
+    </div>
+
+    <!-- SALADES -->
+    <div class="pane" id="p-salades">
+      <div class="list-table reveal">
+        <div class="list-row"><div><div class="list-name">Salade César</div><div class="list-sub">Poulet grillé, parmesan, croûtons, sauce César maison</div></div><div class="list-price">8,97 €</div></div>
+        <div class="list-row"><div><div class="list-name">Salade Lyonnaise</div><div class="list-sub">Lardons, œuf poché, croûtons, vinaigrette moutarde</div></div><div class="list-price">8,97 €</div></div>
+        <div class="list-row"><div><div class="list-name">Salade Chèvre Chaud</div><div class="list-sub">Chèvre gratiné, miel, noix, roquette</div></div><div class="list-price">8,97 €</div></div>
+        <div class="list-row"><div><div class="list-name">Salade Niçoise</div><div class="list-sub">Thon, œufs durs, olives, tomates, haricots verts</div></div><div class="list-price">8,97 €</div></div>
+      </div>
+    </div>
+
+    <!-- DESSERTS -->
+    <div class="pane" id="p-desserts">
+      <div class="list-table reveal">
+        <div class="list-row"><div><div class="list-name">Tiramisu Maison</div><div class="list-sub">Recette maison, mascarpone, café, cacao</div></div><div class="list-price">5,80 €</div></div>
+        <div class="list-row"><div><div class="list-name">Tiramisu Fruits Rouges</div><div class="list-sub">Variante aux fruits rouges, coulis maison</div></div><div class="list-price">5,80 €</div></div>
+        <div class="list-row"><div><div class="list-name">Boisson 33cl</div><div class="list-sub">Coca-Cola, Orangina, Oasis, Ice Tea, Jus</div></div><div class="list-price">1,95 €</div></div>
+        <div class="list-row"><div><div class="list-name">Eau 50cl</div><div class="list-sub">Plate ou gazeuse</div></div><div class="list-price">1,95 €</div></div>
+        <div class="list-row"><div><div class="list-name">Frites Maison</div><div class="list-sub">Portion généreuse, cuisson parfaite</div></div><div class="list-price">3,50 €</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ BEST-SELLERS ══════════ -->
+<section class="section bestsellers" id="bestsellers" style="padding-top:0">
+  <div class="section-inner">
+    <div class="bs-head">
+      <span class="label reveal">Nos incontournables</span>
+      <h2 class="display reveal">LES <em>BEST</em><br>SELLERS</h2>
+      <p class="body-text reveal">Les trois plats qui ont fait la réputation de La Marinade. Ceux pour lesquels on fait la queue.</p>
+    </div>
+    <div class="bs-grid">
+      <!-- Grand card -->
+      <div class="bs-card reveal-l">
+        <div class="bs-img-wrap">
+          <img class="bs-img"
+            src="https://lh3.googleusercontent.com/p/AF1QipNegoM6zoIjmZKYbGcE4BclKMXJKs1aPCdh4vXh=s1600-w640"
+            alt="Tacos Gratiné Maxi La Marinade"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+          />
+          <div class="bs-img-fb" style="display:none"></div>
+        </div>
+        <div class="bs-overlay">
+          <div class="bs-badge red">⭐ N°1 de la carte</div>
+          <div class="bs-name">Tacos Gratiné Maxi</div>
+          <div class="bs-detail">2 viandes · fromage fondu au four · galette maison</div>
+          <div class="bs-price">À partir de 15,90 €</div>
+        </div>
+      </div>
+      <!-- 2 small cards -->
+      <div class="bs-card reveal delay-1">
+        <div class="bs-img-wrap">
+          <img class="bs-img"
+            src="https://lh3.googleusercontent.com/p/AF1QipOsOl68aVo_atpJq0ygFZfjM2QwCaEpDzIJyhyB=s1600-w640"
+            alt="Tacos Chèvre La Marinade"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
+          />
+          <div class="bs-img-fb2" style="display:none"></div>
+        </div>
+        <div class="bs-overlay">
+          <div class="bs-badge gold">Favori</div>
+          <div class="bs-name">Maxi Tacos Chèvre</div>
+          <div class="bs-detail">Le favori des connaisseurs</div>
+          <div class="bs-price">15,90 €</div>
+        </div>
+      </div>
+      <div class="bs-card reveal delay-2">
+        <div class="bs-img-wrap">
+          <div class="bs-img-fb3"></div>
+        </div>
+        <div class="bs-overlay">
+          <div class="bs-badge red">Signature</div>
+          <div class="bs-name">Deluxe Grill</div>
+          <div class="bs-detail">Viandes grillées au charbon de bois</div>
+          <div class="bs-price">15,47 €</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PRESSE ══════════ -->
+<section class="presse reveal">
+  <span class="label" style="display:block;margin-bottom:1.5rem">Lu dans la presse</span>
+  <blockquote class="presse-quote">
+    "La Marinade <em>justifie sa hype considérable</em> et reste la meilleure adresse tacos de Lyon — la galette est d'une moelleux incomparable."
+  </blockquote>
+  <div class="presse-source">
+    <div class="presse-sep"></div>
+    <span class="presse-name">CityGrunch Lyon</span>
+    <div class="presse-sep"></div>
+    <span class="presse-date">Juillet 2024</span>
+  </div>
+</section>
+
+<!-- ══════════ AVIS ══════════ -->
+<section class="section avis-sec" id="avis">
+  <div class="section-inner">
+    <div class="avis-top">
+      <div>
+        <span class="label">Avis vérifiés</span>
+        <h2 class="display reveal">CE QU'ILS EN<br><em>PENSENT</em></h2>
+      </div>
+      <div class="rating-block reveal-r">
+        <div class="rating-num">4.3</div>
+        <div>
+          <span class="rating-stars">★★★★★</span>
+          <span class="rating-count">+15 000 avis · UberEats</span>
+        </div>
+      </div>
+      <div class="avis-platforms reveal-r delay-2">
+        <div class="plat">
+          <div class="plat-score">3.9 ★</div>
+          <div class="plat-name">Google</div>
+          <div class="plat-n">4 878 avis</div>
+        </div>
+        <div class="plat">
+          <div class="plat-score">4.3 ★</div>
+          <div class="plat-name">UberEats</div>
+          <div class="plat-n">15 000+ avis</div>
+        </div>
+        <div class="plat">
+          <div class="plat-score">3.8 ★</div>
+          <div class="plat-name">Facebook</div>
+          <div class="plat-n">95 avis</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="avis-grid">
+      <!-- Avis 1 – Erwan P. – Google ★★★★★ -->
+      <div class="avis-card reveal delay-1">
+        <div class="avis-bigquote">"</div>
+        <div class="avis-stars">★★★★★</div>
+        <p class="avis-text">"Super expérience, un peu d'attente le soir mais bon le meilleur tacos de France se mérite 😉 Food: 5 · Service: 5 · Atmosphère: 5"</p>
+        <div class="avis-footer">
+          <div class="avis-author">
+            <div class="avis-av">EP</div>
+            <div><div class="avis-name">Erwan P.</div><div class="avis-via">Google</div></div>
+          </div>
+          <div class="avis-rating-badge">5/5</div>
+        </div>
+      </div>
+      <!-- Avis 2 – B.RKO – TripAdvisor ★★★★★ Mai 2024 -->
+      <div class="avis-card reveal delay-2">
+        <div class="avis-bigquote">"</div>
+        <div class="avis-stars">★★★★★</div>
+        <p class="avis-text">"C'est le meilleur tacos de l'histoire... le meilleur tacos que vous mangerez de votre vie... il y a de l'attente, mais putain ce que c'est bon !!!"</p>
+        <div class="avis-footer">
+          <div class="avis-author">
+            <div class="avis-av">BR</div>
+            <div><div class="avis-name">B.RKO</div><div class="avis-via">TripAdvisor · Mai 2024</div></div>
+          </div>
+          <div class="avis-rating-badge">5/5</div>
+        </div>
+      </div>
+      <!-- Avis 3 – Paulitooo – TripAdvisor ★★★★★ Juin 2024 -->
+      <div class="avis-card reveal delay-3">
+        <div class="avis-bigquote">"</div>
+        <div class="avis-stars">★★★★★</div>
+        <p class="avis-text">"Meilleur tacos de ma vie... Les proportions étaient généreuses, la qualité au rendez-vous. Le rapport qualité/prix est très raisonnable."</p>
+        <div class="avis-footer">
+          <div class="avis-author">
+            <div class="avis-av">PA</div>
+            <div><div class="avis-name">Paulitooo</div><div class="avis-via">TripAdvisor · Juin 2024</div></div>
+          </div>
+          <div class="avis-rating-badge">5/5</div>
+        </div>
+      </div>
+      <!-- Avis 4 – AlexisClv380 – TripAdvisor ★★★★★ -->
+      <div class="avis-card reveal delay-1">
+        <div class="avis-bigquote">"</div>
+        <div class="avis-stars">★★★★★</div>
+        <p class="avis-text">"La viande est bonne, bien marinée, pas du tout sèche, l'ensemble du tacos est parfaitement équilibré et rassasie très bien."</p>
+        <div class="avis-footer">
+          <div class="avis-author">
+            <div class="avis-av">AC</div>
+            <div><div class="avis-name">AlexisClv380</div><div class="avis-via">TripAdvisor · Mai 2023</div></div>
+          </div>
+          <div class="avis-rating-badge">5/5</div>
+        </div>
+      </div>
+      <!-- Avis 5 – Maeva A. – Mapstr ★★★★★ -->
+      <div class="avis-card reveal delay-2">
+        <div class="avis-bigquote">"</div>
+        <div class="avis-stars">★★★★★</div>
+        <p class="avis-text">"La réputation ne déçoit pas puisque c'est le meilleur tacos de Lyon. L'attente de 40-50 min vaut largement le détour."</p>
+        <div class="avis-footer">
+          <div class="avis-author">
+            <div class="avis-av">MA</div>
+            <div><div class="avis-name">Maeva A.</div><div class="avis-via">Mapstr</div></div>
+          </div>
+          <div class="avis-rating-badge">5/5</div>
+        </div>
+      </div>
+      <!-- Avis 6 – Marlène – TripAdvisor ★★★★ Avr 2026 -->
+      <div class="avis-card reveal delay-3">
+        <div class="avis-bigquote">"</div>
+        <div class="avis-stars">★★★★☆</div>
+        <p class="avis-text">"Tout simplement les meilleurs tacos que j'ai mangés. Original la façon d'annoncer les commandes."</p>
+        <div class="avis-footer">
+          <div class="avis-author">
+            <div class="avis-av">ML</div>
+            <div><div class="avis-name">Marlène</div><div class="avis-via">TripAdvisor · Avr. 2026</div></div>
+          </div>
+          <div class="avis-rating-badge">4/5</div>
+        </div>
+      </div>
+      <!-- Avis 7 – @guere – Mapstr ★★★★★ -->
+      <div class="avis-card reveal delay-1">
+        <div class="avis-bigquote">"</div>
+        <div class="avis-stars">★★★★★</div>
+        <p class="avis-text">"Chaque morceau de fromage est délicieux — fondant, coulant, croustillant. Le poulet est tendre, savoureux, exquis."</p>
+        <div class="avis-footer">
+          <div class="avis-author">
+            <div class="avis-av">GU</div>
+            <div><div class="avis-name">@guere</div><div class="avis-via">Mapstr</div></div>
+          </div>
+          <div class="avis-rating-badge">5/5</div>
+        </div>
+      </div>
+      <!-- Avis 8 – Vadym – TripAdvisor ★★★★ Juin 2025 -->
+      <div class="avis-card reveal delay-2">
+        <div class="avis-bigquote">"</div>
+        <div class="avis-stars">★★★★☆</div>
+        <p class="avis-text">"Tacos chèvre miel : un vrai délice. Pour seulement 9€, un tacos équivalent à 2 ou même 3 viandes des grandes chaînes."</p>
+        <div class="avis-footer">
+          <div class="avis-author">
+            <div class="avis-av">VA</div>
+            <div><div class="avis-name">Vadym</div><div class="avis-via">TripAdvisor · Juin 2025</div></div>
+          </div>
+          <div class="avis-rating-badge">4/5</div>
+        </div>
+      </div>
+      <!-- Avis 9 – Anat – TripAdvisor ★★★★ Juin 2025 -->
+      <div class="avis-card reveal delay-3">
+        <div class="avis-bigquote">"</div>
+        <div class="avis-stars">★★★★☆</div>
+        <p class="avis-text">"Le meilleur tacos de France, c'est là. Le tacos reste délicieux et très chargé. Une adresse incontournable quand on visite Lyon."</p>
+        <div class="avis-footer">
+          <div class="avis-author">
+            <div class="avis-av">AN</div>
+            <div><div class="avis-name">Anat</div><div class="avis-via">TripAdvisor · Juin 2025</div></div>
+          </div>
+          <div class="avis-rating-badge">4/5</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ LOCALISATION ══════════ -->
+<section class="section loc-sec" id="localisation">
+  <div class="section-inner">
+    <div class="loc-grid">
+      <div class="loc-info">
+        <span class="label reveal">Nous trouver</span>
+        <h2 class="display reveal">HORAIRES<br>&amp; <em>CONTACT</em></h2>
+
+        <div class="hours-block reveal" style="margin-top:2rem">
+          <div class="hours-title">Horaires d'ouverture</div>
+          <div class="hours-row"><span class="hours-day">Lundi</span><span class="hours-val">11h00 – 00h00</span></div>
+          <div class="hours-row"><span class="hours-day">Mardi</span><span class="hours-val">11h00 – 00h00</span></div>
+          <div class="hours-row"><span class="hours-day">Mercredi</span><span class="hours-val">11h00 – 00h00</span></div>
+          <div class="hours-row"><span class="hours-day">Jeudi</span><span class="hours-val">11h00 – 00h00</span></div>
+          <div class="hours-row"><span class="hours-day">Vendredi</span><span class="hours-val today">13h00 – 01h00</span></div>
+          <div class="hours-row"><span class="hours-day">Samedi</span><span class="hours-val today">11h00 – 01h00</span></div>
+          <div class="hours-row" style="border-bottom:none"><span class="hours-day">Dimanche</span><span class="hours-val today">11h00 – 01h00</span></div>
+        </div>
+
+        <div class="contact-info reveal">
+          <div class="ci">
+            <div class="ci-icon">📍</div>
+            <div>
+              <div class="ci-label">Adresse</div>
+              <div class="ci-val">110 Rue du 4 Août 1789 · 69100 Villeurbanne</div>
+            </div>
+          </div>
+          <div class="ci">
+            <div class="ci-icon">🚇</div>
+            <div>
+              <div class="ci-label">Accès transport</div>
+              <div class="ci-val">Métro Ligne A — Station Flachet</div>
+            </div>
+          </div>
+          <div class="ci">
+            <div class="ci-icon">📞</div>
+            <div>
+              <div class="ci-label">Téléphone</div>
+              <div class="ci-val"><a href="tel:+33478843970">04 78 84 39 70</a></div>
+            </div>
+          </div>
+          <div class="ci">
+            <div class="ci-icon">📷</div>
+            <div>
+              <div class="ci-label">Instagram</div>
+              <div class="ci-val"><a href="https://instagram.com/la_marinade_69" target="_blank">@la_marinade_69 · 59K abonnés</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-row reveal" style="margin-bottom:2rem">
+          <a href="https://instagram.com/la_marinade_69" target="_blank" class="soc" title="Instagram">📷</a>
+          <a href="https://www.facebook.com/p/La-Marinade-100063548534659/" target="_blank" class="soc" title="Facebook">👤</a>
+          <a href="https://www.tiktok.com/@la_marinade69" target="_blank" class="soc" title="TikTok">🎵</a>
+          <a href="https://linktr.ee/lamarinade69" target="_blank" class="soc" title="Linktree">🔗</a>
+        </div>
+
+        <div class="halal-chip reveal">
+          <span style="font-size:1.2rem">☪</span>
+          <span>100% Halal Certifié</span>
+        </div>
+      </div>
+
+      <div class="map-card reveal-r">
+        <div class="map-head">
+          <div class="map-dot"></div>
+          LA MARINADE — VILLEURBANNE
+        </div>
+        <iframe
+          class="map-iframe"
+          src="https://maps.google.com/maps?q=110+Rue+du+4+Ao%C3%BBt+1789,+69100+Villeurbanne&t=&z=16&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="La Marinade sur Google Maps"
+        ></iframe>
+        <div class="map-footer">
+          <div class="map-addr">110 Rue du 4 Août 1789<br>69100 Villeurbanne · Métro Flachet</div>
+          <a href="https://maps.google.com/?q=La+Marinade+110+Rue+du+4+Aout+1789+Villeurbanne" target="_blank" class="map-open">Y aller →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA FINAL ══════════ -->
+<section class="cta-final">
+  <span class="label reveal" style="display:block;margin-bottom:1rem">Prêt ?</span>
+  <h2 class="display reveal">COMMANDEZ<br>LE <em>N°1</em></h2>
+  <p class="body-text reveal" style="margin-top:1.2rem">Rejoignez les milliers de Lyonnais qui ont adopté le tacos gratiné de La Marinade. Livraison ou sur place — à vous de choisir.</p>
+  <div class="cta-btns reveal">
+    <a href="https://order.tryotter.com/s/la-marinade/110-rue-du-4-ao%C3%BBt-1789-villeurbanne/c63544bc-945c-4eb6-b84d-84bf69045757" target="_blank" class="btn-fire">Commander maintenant</a>
+    <a href="https://www.ubereats.com/fr/store/la-marinade/nRBWfzGNTCO1X39EaNGNaw" target="_blank" class="btn-line">UberEats →</a>
+    <a href="https://deliveroo.fr/fr/menu/lyon/lyon-villeurbanne-grand-clement/la-marinade-villeurbanne" target="_blank" class="btn-line">Deliveroo →</a>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <div class="logo-f"><div class="nav-logo-dot"></div>LA <span>MARINADE</span></div>
+      <p>Le seul tacos cuit au charbon de bois. Restaurant halal à Villeurbanne, Lyon. Ouvert depuis 2010.</p>
+      <div class="foot-socs">
+        <a href="https://instagram.com/la_marinade_69" target="_blank" class="soc">📷</a>
+        <a href="https://www.facebook.com/p/La-Marinade-100063548534659/" target="_blank" class="soc">👤</a>
+        <a href="https://www.tiktok.com/@la_marinade69" target="_blank" class="soc">🎵</a>
+        <a href="https://linktr.ee/lamarinade69" target="_blank" class="soc">🔗</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#concept">Notre concept</a></li>
+        <li><a href="#menu">La carte</a></li>
+        <li><a href="#bestsellers">Best-sellers</a></li>
+        <li><a href="#avis">Avis clients</a></li>
+        <li><a href="#localisation">Localisation</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Commander</h4>
+      <ul>
+        <li><a href="https://order.tryotter.com/s/la-marinade/110-rue-du-4-ao%C3%BBt-1789-villeurbanne/c63544bc-945c-4eb6-b84d-84bf69045757" target="_blank">Commande directe</a></li>
+        <li><a href="https://www.ubereats.com/fr/store/la-marinade/nRBWfzGNTCO1X39EaNGNaw" target="_blank">Uber Eats</a></li>
+        <li><a href="https://deliveroo.fr/fr/menu/lyon/lyon-villeurbanne-grand-clement/la-marinade-villeurbanne" target="_blank">Deliveroo</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <p>110 Rue du 4 Août 1789<br>69100 Villeurbanne<br><br>📞 <a href="tel:+33478843970" style="color:var(--red)">04 78 84 39 70</a><br><br>Métro A — Flachet</p>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2026 La Marinade — Villeurbanne, Lyon. Tous droits réservés.</p>
+    <p>Mentions légales · Politique de confidentialité · Site vitrine</p>
+  </div>
+</footer>
+
+<script>
+/* ── LOADER ── */
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loader').classList.add('out'),1600)
+})
+
+/* ── NAV SCROLL ── */
+const nav=document.getElementById('nav')
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('solid',scrollY>60)
+},{ passive:true })
+
+/* ── NAV MOBILE ── */
+const ham=document.getElementById('navHam')
+const links=document.getElementById('navLinks')
+ham.addEventListener('click',()=>{
+  links.classList.toggle('open')
+})
+links.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click',()=>links.classList.remove('open'))
+})
+
+/* ── HERO PARALLAX ── */
+const heroBg=document.getElementById('heroBg')
+window.addEventListener('scroll',()=>{
+  heroBg.style.transform=`scale(1.05) translateY(${scrollY*.25}px)`
+},{ passive:true })
+// Trigger hero bg zoom on load
+setTimeout(()=>{ if(heroBg) heroBg.style.transform='scale(1) translateY(0)' },100)
+
+/* ── TABS ── */
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'))
+    document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'))
+    t.classList.add('on')
+    const p=document.getElementById('p-'+t.dataset.t)
+    if(p) p.classList.add('on')
+  })
+})
+
+/* ── SCROLL REVEAL ── */
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible')
+      obs.unobserve(e.target)
+    }
+  })
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'})
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>obs.observe(el))
+</script>
+</body>
+</html>
